@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FairyTales — Mint & Lavender Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero__top">
+        <div class="logo">FairyTales</div>
+        <div class="language-switcher">
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="it">IT</button>
+          <button class="lang-btn" data-lang="ru">RU</button>
+          <button class="cart-trigger" aria-label="Open cart">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+      <div class="hero__content">
+        <div class="hero__text">
+          <p class="eyebrow" data-i18n="hero_eyebrow">Magical stories for curious minds</p>
+          <h1 class="hero__title" data-i18n="hero_title">Mint & lavender online bookshop for bedtime tales</h1>
+          <p class="hero__subtitle" data-i18n="hero_subtitle">Hand-picked fairy tales to lull little dreamers. Choose calming or adventurous moods and build your bedtime ritual.</p>
+          <div class="hero__actions">
+            <button class="btn primary" data-i18n="btn_shop">Shop now</button>
+            <button class="btn ghost" data-open-review data-i18n="btn_review">Leave a review</button>
+          </div>
+        </div>
+        <div class="hero__image">
+          <img src="images/hero-placeholder.jpg" alt="Fairy tales collage" />
+        </div>
+      </div>
+    </header>
+
+    <section class="featured" id="featured">
+      <div class="section-header">
+        <p class="section-eyebrow" data-i18n="featured_eyebrow">Featured Fairy Tales</p>
+        <h2 data-i18n="featured_title">Swipe through our growing collection — add to cart with one tap.</h2>
+      </div>
+      <div class="carousel">
+        <button class="carousel__nav prev" aria-label="Previous">&#8592;</button>
+        <div class="carousel__track" id="carouselTrack"></div>
+        <button class="carousel__nav next" aria-label="Next">&#8594;</button>
+      </div>
+    </section>
+
+    <section class="cta-review">
+      <div class="cta-content">
+        <h3 data-i18n="review_cta_title">Enjoyed the stories? Leave a review on Amazon and get one fairy tale for free!</h3>
+        <button class="btn primary" data-open-review data-i18n="btn_review">Leave a review</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal" id="cartModal" aria-hidden="true">
+    <div class="modal__overlay" data-close-modal></div>
+    <div class="modal__content">
+      <div class="modal__header">
+        <h3 data-i18n="cart_title">Your cart</h3>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-summary">
+        <span data-i18n="cart_total">Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <div class="modal__actions">
+        <button class="btn ghost" data-close-modal data-i18n="btn_continue">Continue browsing</button>
+        <button class="btn primary" id="checkoutBtn" data-i18n="btn_checkout">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="checkoutModal" aria-hidden="true">
+    <div class="modal__overlay" data-close-modal></div>
+    <div class="modal__content">
+      <div class="modal__header">
+        <h3 data-i18n="checkout_title">Checkout</h3>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="checkoutForm" class="form-grid">
+        <label>
+          <span data-i18n="field_first">First name</span>
+          <input type="text" name="firstName" required />
+        </label>
+        <label>
+          <span data-i18n="field_last">Last name</span>
+          <input type="text" name="lastName" required />
+        </label>
+        <label class="full-row">
+          <span>Email</span>
+          <input type="email" name="email" required />
+        </label>
+        <label class="full-row">
+          <span data-i18n="field_address">Shipping address</span>
+          <input type="text" name="address" required />
+        </label>
+        <label class="full-row">
+          <span data-i18n="field_comment">Comment</span>
+          <textarea name="comment" rows="3"></textarea>
+        </label>
+        <fieldset class="subscription full-row">
+          <legend data-i18n="field_subscription">Choose your subscription</legend>
+          <label><input type="radio" name="subscription" value="6m" checked /> <span data-i18n="sub_6m">6 months — $25</span></label>
+          <label><input type="radio" name="subscription" value="12m" /> <span data-i18n="sub_12m">12 months — $45</span></label>
+        </fieldset>
+        <div class="form-actions full-row">
+          <button type="button" class="btn paypal" aria-label="Pay with PayPal">
+            <span class="paypal-logo">PayPal</span>
+          </button>
+          <button type="submit" class="btn primary" data-i18n="btn_place_order">Place order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="reviewModal" aria-hidden="true">
+    <div class="modal__overlay" data-close-modal></div>
+    <div class="modal__content">
+      <div class="modal__header">
+        <h3 data-i18n="review_title">Leave a review</h3>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="reviewForm" class="form-grid">
+        <label class="full-row">
+          <span data-i18n="field_name">Name</span>
+          <input type="text" name="name" required />
+        </label>
+        <label class="full-row">
+          <span>Email</span>
+          <input type="email" name="email" required />
+        </label>
+        <label class="full-row">
+          <span data-i18n="field_link">Link to Amazon review</span>
+          <input type="url" name="link" required />
+        </label>
+        <div class="modal__actions full-row">
+          <button type="button" class="btn ghost" data-close-modal data-i18n="btn_cancel">Cancel</button>
+          <button type="submit" class="btn primary" data-i18n="btn_submit_review">Submit review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
